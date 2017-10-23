@@ -1,10 +1,12 @@
 <?php
-# Fill our vars and run on cli
-# $ php -f db-connect-test.php
-$dbname = 'c1db2';
-$dbuser = 'c1dbu1';
-$dbpass = 'Rs0Kv0Imn5';
-$dbhost = '84.19.166.106';
+require_once 'DbH.php';
+require_once 'DbP.php';
+
+$dbname = DbP::DB;
+$dbuser = DbP::DBUSER;
+$dbpass = DbP::USERPWD;
+$dbhost = DbP::DBHOST;
+
 $link = mysqli_connect($dbhost, $dbuser, $dbpass) or die("Unable to Connect to '$dbhost'");
 mysqli_select_db($link, $dbname) or die("Could not open the db '$dbname'");
 $test_query = "SHOW TABLES FROM $dbname";
