@@ -2,7 +2,7 @@
 
 /* 
  * view/View.inc.php
- * @Project: Yadda
+ * @Project: YaddaYaddaYadda
  * @Author: Daniel, Jesper, Marianne & Peter
  */
 
@@ -29,6 +29,8 @@ abstract class View {
     
     private function bottom() {
         $s = sprintf("
+     <footer>
+     </footer>
   </body>
 </html>");
         return $s;

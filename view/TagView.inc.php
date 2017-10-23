@@ -1,8 +1,26 @@
 <?php
 
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * view/TagView.inc.php
+ * @Project: YaddaYaddaYadda
+ * @Author: Daniel, Jesper, Marianne & Peter
  */
+
+require_once 'view/View.inc.php';
+
+class TagView extends View {
+    
+    public function __construct($model) {
+        parent::__construct($model);
+    }
+    
+    private function displayManyTags() {
+        
+    }
+    
+    public function display() {
+        $this->output($this->displayManyTags());
+    }
+    
+}
 
