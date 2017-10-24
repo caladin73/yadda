@@ -97,8 +97,20 @@ class Users {
         $dbh->query('commit');
     }
     
-    public static function activateUser () {
-        
+    public function activateUser () {
+        $sql = "UPDATE Users SET activated = (:activated) WHERE username = (:username)";
+
+        $dbh = dbh::connect();
+        try {
+            $q = $dbh->prepare($sql);
+            $q->bindValue(':username', $this->getUsername());
+            $q->bindValue(':activated', $this->getActivated());
+            $q->execute();
+        } catch(PDOException $e) {
+            printf("<p>Insert of user failed: <br/>%s</p>\n",
+                $e->getMessage());
+        }
+        $dbh->query('commit');
     }
     
     public function retrieveMany () {
