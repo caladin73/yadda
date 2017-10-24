@@ -12,7 +12,7 @@ class Yadda {
     private $text;
     private $username;
     private $dateAndTime;
-    private $tagList;
+    private $tagList; // array
     
     function __construct($YaddaID, $Text, $Username, $DateAndTime, $TagList) {
         $this->yaddaID = $YaddaID;

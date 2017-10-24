@@ -8,6 +8,7 @@
 require_once 'model/Model.inc.php';
 require_once 'model/Users.inc.php';
 require_once 'view/LoginView.inc.php';
+require_once 'view/UserView.inc.php';
 
 class Controller {
     private $model; // bliver sat i action()
@@ -33,7 +34,7 @@ class Controller {
                 $this->logout();
                 $view1->display();
                 break;
-            case 'U':   //user create
+            case 'register':   //user create
                 $this->model = new Users(null, null, null, null, null, null, null); // init a model
                 $view1 = new UserView($this->model);                  // init a view
                 if (count($this->post) > 0) {
@@ -64,7 +65,7 @@ class Controller {
         foreach ($get as $key => $value) {
             $$key = $value;
         }
-        $this->function = isset($function) ? $function : 'login';
+        $this->function = isset($f) ? $f : 'login';
     }
 
     public function auth($p) {

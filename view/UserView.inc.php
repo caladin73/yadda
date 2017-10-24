@@ -7,6 +7,7 @@
  */
 
 require_once 'view/View.inc.php';
+require_once '../model/Users.inc.php';
 
 class UserView extends View {
     

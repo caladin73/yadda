@@ -48,7 +48,7 @@ abstract class View {
                 <li><a href='%s?f=L'>Profile</a></li>\n",
                 $_SERVER['PHP_SELF'], $_SERVER['PHP_SELF'], $_SERVER['PHP_SELF'], $_SERVER['PHP_SELF']);
         } else {
-            $s .= sprintf("                <li><a href='%s?f=U'>Register User</a></li>\n",
+            $s .= sprintf("                <li><a href='%s?f=register'>Register User</a></li>\n",
                 $_SERVER['PHP_SELF']);
         }
         if (!Authentication::isAuthenticated()) {
