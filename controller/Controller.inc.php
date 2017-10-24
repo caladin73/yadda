@@ -35,7 +35,7 @@ class Controller {
                 $view1->display();
                 break;
             case 'register':   //user create
-                $this->model = new Users(null, null, null, null, null, null, null); // init a model
+                $this->model = new Users(null, null, null, null, null); // init a model
                 $view1 = new UserView($this->model);                  // init a view
                 if (count($this->post) > 0) {
                     $this->create($this->post);               // activate controller
