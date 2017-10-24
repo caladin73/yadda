@@ -7,16 +7,17 @@
 
 error_reporting(E_ALL);
 
-require_once 'Yadda.php';
+require_once 'Tag.inc.php';
 
 class Tag {
-    private $TagName;
+    private $tagName;
+    private $yaddaID;
     
     public function getTagName() {
-        return $this->TagName;
+        return $this->tagName;
     }
     public function setTagName($TagName) {
-        $this->TagName = $TagName;
+        $this->tagName = $TagName;
     }
        
     public function create() {
@@ -35,7 +36,15 @@ class Tag {
         
     }
     
-    public function construct () {
-        
+    function __construct($TagName, $YaddaID) {
+        $this->tagName = $TagName;
+        $this->yaddaID = $YaddaID;
+    }
+    function getYaddaID() {
+        return $this->yaddaID;
+    }
+
+    function setYaddaID($YaddaID) {
+        $this->yaddaID = $YaddaID;
     }
 }

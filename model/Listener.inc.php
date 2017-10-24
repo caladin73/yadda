@@ -8,21 +8,21 @@
 error_reporting(E_ALL);
 
 class Listener {
-    private $UsernameListener;
-    private $UsernameListensTo;
+    private $usernameListener;
+    private $usernameListensTo;
     
     public function getUsernameListener() {
-        return $this->UsernameListener;
+        return $this->usernameListener;
     }
     public function setUsernameListener($UsernameListener) {
-        $this->UsernameListener = $UsernameListener;
+        $this->usernameListener = $UsernameListener;
     }
 
     public function getUsernameListensto() {
-        return $this->UsernameListensTo;
+        return $this->usernameListensTo;
     }
     public function setUsernameListensto($UsernameListensto) {
-        $this->UsernameListensto = $UsernameListensto;
+        $this->usernameListensto = $UsernameListensto;
     }
     
     public function retrieveMany () {
@@ -31,5 +31,10 @@ class Listener {
     
     public function createObject () {
         
+    }
+    
+    function __construct($UsernameListener, $UsernameListensTo) {
+        $this->usernameListener = $UsernameListener;
+        $this->usernameListensTo = $UsernameListensTo;
     }
 }

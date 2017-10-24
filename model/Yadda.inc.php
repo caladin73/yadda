@@ -8,49 +8,53 @@
 error_reporting(E_ALL);
 
 class Yadda {
-    private $YaddaID;
-    private $Text;
-    private $Username;
-    private $DateAndTime;
-    private $TagList;
+    private $yaddaID;
+    private $text;
+    private $username;
+    private $dateAndTime;
+    private $tagList;
     
-    public function construct () {
-        
+    function __construct($YaddaID, $Text, $Username, $DateAndTime, $TagList) {
+        $this->yaddaID = $YaddaID;
+        $this->text = $Text;
+        $this->username = $Username;
+        $this->dateAndTime = $DateAndTime;
+        $this->tagList = $TagList;
     }
     
     public function getYaddaID() {
-        return $this->YaddaID;
+        return $this->yaddaID;
     }
     public function setYaddaID($YaddaID) {
-        $this->YaddaID = $YaddaID;
+        $this->yaddaID = $YaddaID;
     }
     
     public function getUsername() {
-        return $this->Username;
+        return $this->username;
     }
     public function setUsername($Username) {
-        $this->Username = $Username;
+        $this->username = $Username;
     }
     
     public function getText() {
-        return $this->Text;
+        return $this->text;
     }
     public function setText($Text) {
-        $this->Text = $Text;
+        $this->text = $Text;
     }
     
     public function getDateAndTime() {
-        return $this->DateAndTime;
+        return $this->dateAndTime;
     }
     public function setDateAndTime($DateAndTime) {
-        $this->DateAndTime = $DateAndTime;
+        $this->dateAndTime = $DateAndTime;
     }
     
     public function getTagList() {
-        return $this->TagList;
+        return $this->tagList;
     }
     public function setTagList($TagList) {
-        $this->TagList = $TagList;
+        $this->tagList = $TagList;
     }
     
     public function create() {
