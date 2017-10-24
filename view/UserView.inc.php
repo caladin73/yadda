@@ -81,13 +81,13 @@ class UserView extends View {
     
     private function displayRegister() {
         $s = sprintf("<main class='main'>\n%s\n%s</main>\n"
-                    , $this->displayul()
+                    , $this->displayUser()
                     , $this->registerForm());
         return $s;
     }
 
     public function display(){
-       $this->output($this->displayUser());
+       $this->output($this->displayRegister());
     }
     
 }

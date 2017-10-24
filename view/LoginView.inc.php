@@ -23,7 +23,7 @@ class LoginView extends View {
                     <td>Userid:</td><td><input type='text' name='username'/></td>\n
                 </tr>\n
                 <tr>\n
-                    <td>Pwd: </td><td><input type='password' name='pwd'/></td>\n
+                    <td>Pwd: </td><td><input type='password' name='password'/></td>\n
                 </tr>\n
                 <tr>\n
                     <td></td>\n
