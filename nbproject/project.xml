@@ -3,7 +3,11 @@
     <type>org.netbeans.modules.php.project</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/php-project/1">
+<<<<<<< HEAD
             <name>Project_Week_2</name>
+=======
+            <name>Yadda</name>
+>>>>>>> f05a5957a5a9d82ac70dfc422a91f18e26e6781a
         </data>
     </configuration>
 </project>
