@@ -6,7 +6,7 @@
  * @Author: Daniel, Jesper, Marianne & Peter
  */
 
-require_once 'view/View.inc.php';
+require_once 'View.inc.php';
 
 class LoginView extends View {
     
@@ -30,7 +30,7 @@ class LoginView extends View {
                     <td>
                         <p>
                         <input type='submit' value='OK'/>&nbsp;&nbsp;&nbsp;
-                        <button onclick='window.location=./index.php?f=A'>I Surrender</button>
+                        <button onclick='window.location=./index.php?f=home'>I Surrender</button>
                         </p>
                     </td>\n
                 </tr>\n", $_SERVER['PHP_SELF']);
