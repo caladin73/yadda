@@ -9,6 +9,7 @@ require_once 'model/Model.inc.php';
 require_once 'model/Users.inc.php';
 require_once 'view/LoginView.inc.php';
 require_once 'view/UserView.inc.php';
+require_once 'model/test_hieraci_data.php';
 
 class Controller {
     private $model; // bliver sat i action()
@@ -20,6 +21,12 @@ class Controller {
     // Called with param in URL: ?f=
     public function action() {
         switch ($this->function) {
+            case 'hieraci':
+                $data = new test_hieraci_data();
+                $data->rebuild_tree(1, 1);
+                $data->display_children(1, 0);
+                //header("Location: ./model/test_hieraci_data.php");
+                break;
             case 'login':   //auth
                 $this->model = new Users(null, null, null, null, null, null, null);
                 $view1 = new LoginView($this->model); //TODO
