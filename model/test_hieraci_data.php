@@ -7,13 +7,9 @@ class test_hieraci_data {
     private $dbuser = DbP::DBUSER;
     private $dbpass = DbP::USERPWD;
     private $dbhost = DbP::DBHOST;
-private $link;
+    private $link;
 
 function __construct() {
-    //$dbname = DbP::DB;
-    //$dbuser = DbP::DBUSER;
-    //$dbpass = DbP::USERPWD;
-    //$dbhost = DbP::DBHOST;
     $this->link = mysqli_connect($this->dbhost, $this->dbuser, $this->dbpass, $this->dbname);
 }
 
@@ -31,7 +27,7 @@ function display_children($parent, $level) {
     // display each child 
     while ($row = mysqli_fetch_array($result)) {   
         // indent and display the title of this child 
-        echo str_repeat('x',$level).$row['YaddaID']."n<br />"; 
+        echo str_repeat('&nbsp;&nbsp;',$level).$row['YaddaID']."n<br />"; 
         // call this function again to display this 
         // child's children 
         $this->display_children($row['YaddaID'], $level+1); 
@@ -49,7 +45,7 @@ public function rebuild_tree($parent, $left) {
                                         from Reply r
                                         where r.YaddaID = '.$parent.')');   
     
-    if (!$this->link->error) {
+    if (!$this->link->error) { //TODO -> try-catch
         $error = $this->link->error;
     }
     
@@ -66,7 +62,7 @@ public function rebuild_tree($parent, $left) {
     $result = $this->link->query('UPDATE Yadda SET lft='.$left.', rght='.   
                                     $right.' WHERE YaddaID="'.$parent.'";');   
     if (!$result) {
-        $error = $this->link->error;
+        $error = $this->link->error; //TODO -> try-catch
     }
     // return the right value of this node + 1   
     return $right+1;   
