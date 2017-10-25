@@ -1,22 +1,3 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <?php
-        // put your code here
-        ?>
-    </body>
-</html>
-=======
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -39,4 +20,3 @@ and open the template in the editor.
         ?>
     </body>
 </html>
->>>>>>> 90a934d4923f028940c5c96220e5a966d445a8a6

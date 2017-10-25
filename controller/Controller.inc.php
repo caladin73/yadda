@@ -7,8 +7,10 @@
  */
 require_once './model/Model.inc.php';
 require_once './model/Users.inc.php';
+require_once './model/Yadda.inc.php';
 require_once './view/LoginView.inc.php';
 require_once './view/UserView.inc.php';
+require_once './view/YaddaView.inc.php';
 
 class Controller {
     private $model; // bliver sat i action()
@@ -53,6 +55,14 @@ class Controller {
                     $this->updateUser($this->post['uid']);               // activate controller
                 }
                 header("Location: ./index.php");
+                break;
+            case 'yadda':   //yadda form
+                $this->model = new Yadda(null, null, null, null, null, null, null); // init a model
+                $view1 = new YaddaView($this->model);// init a view
+                if (count($this->post) > 0) {
+                    $this->createYadda($this->post);               // activate controller
+                }
+                $view1->display();
                 break;
             //case osv...
         }
