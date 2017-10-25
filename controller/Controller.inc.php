@@ -22,12 +22,6 @@ class Controller {
     // Called with param in URL: ?f=
     public function action() {
         switch ($this->function) {
-            case 'pictype':
-                
-                $s = "<img source='http://localhost/Yadda/model/getImage.php?id=haffe' alt='pic'>";
-                echo $s;
-                
-                break;
             case 'yadda':
                 
                 $tags = Tag::getTagsInText('Der var engang en lille ¤prinsesse som der gerne ville have en pony ¤pony');
