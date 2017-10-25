@@ -9,10 +9,35 @@ class test_hieraci_data {
     private $dbhost = DbP::DBHOST;
     private $link;
 
-function __construct() {
-    $this->link = mysqli_connect($this->dbhost, $this->dbuser, $this->dbpass, $this->dbname);
-}
+    function __construct() {
+        $this->link = mysqli_connect($this->dbhost, $this->dbuser, $this->dbpass, $this->dbname);
+    }
 
+    public function getChildren($parent, $level, $yaddas) {
+        
+        // retrieve all children of $parent 
+        $result = $this->link->query('SELECT *
+                                            FROM Yadda y 
+                                            WHERE y.YaddaID in (select r.YaddaIDReply 
+                                            from Reply r
+                                            where r.YaddaID = '.$parent.')');   
+
+        // display each child 
+        while ($row = mysqli_fetch_array($result)) {   
+            // indent and display the title of this child 
+           // echo str_repeat('&nbsp;&nbsp;',$level).$row['YaddaID']."n<br />"; 
+            $y = new Yadda($row["YaddaID"], $row["Text"], $row["Username"], $row["DateAndTime"], $row["lft"], $row["rght"]);
+            $y->setLevel($level);
+            
+          //  array_push($yaddas, $y);
+            $yaddas .= str_repeat('&nbsp;&nbsp;',$y->getLevel()).$y."\n"; 
+            // call this function again to display this 
+            // child's children 
+
+            return $this->getChildren($row['YaddaID'], $level+1, $yaddas); 
+        } 
+        return $yaddas;
+    }
 // $parent is the parent of the children we want to see 
 // $level is increased when we go deeper into the tree, 
 //        used to display a nice indented tree 

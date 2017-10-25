@@ -16,13 +16,23 @@ class YaddaView extends View {
     }
     
     private function displayManyYaddas() {
-        $yaddas = Yadda::retrieveMany();
-        $s = "<div class='haves'>";
+        
+        $yaddas = Yadda::retrieveMany(); // hovedyaddas
+        //$data = new test_hieraci_data();
+                
+        $s = "<div class='yaddas'>\n";
         foreach ($yaddas as $yadda) {
-            $s .=  sprintf("%s<br/>\n"
+            $s .=  sprintf("%s<br />\n"
                 , $yadda);
+            
+            $nodes = "";
+            $nodes = Yadda::getChildren($yadda->getYaddaID(), 0, $nodes);
+            $s .= $nodes;
+            /*foreach ($nodes as $node) {
+                $s .= str_repeat('&nbsp;&nbsp;',$node->getLevel()).$node."<br />";
+            }*/
         }
-        $s .= "</div>";
+        $s .= "</div>\n";
         return $s;
     }
     

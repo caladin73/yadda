@@ -117,8 +117,27 @@ class Users extends Model {
     public function retrieveMany () {
         
     }
-    public static function retrieveOne () {
+    public static function retrieveOne ($userid) {
+       
+        $dbh = Model::connect();
         
+        $sql = "SELECT * FROM view_yaddas_no_replies where Username=".$userid;
+        
+        
+        try {
+            $q = $dbh->prepare($sql);
+            $q->execute();
+            while ($row = $q->fetch()) {
+               // $yadda = self::createObject($row);
+                //$yaddaID, $text, $username, $dateAndTime, $lft, $rght
+                $yadda = new Yadda($row["YaddaID"], $row["Text"], $row["Username"], $row["DateAndTime"], $row["lft"], $row["rght"]);
+            }   
+        } catch (PDOException $e) {
+            printf("<P>No User (retrieveOne) could be displayed: <br/>%s</p>\n",
+                    $e->getMessage());
+        } finally {
+            return $yadda;            
+        }
     }
     
     public function update() {
@@ -132,5 +151,14 @@ class Users extends Model {
             $user->setPassword($a['password']);
         }
         return $user;
+    }
+    
+    public function __toString2() {
+        $s = "<div>";
+            $s .= "<img source='".$_SERVER['PHP_SELF']."/getImage.php?id=".$this->getUsername()."'>";
+            $s .= "<p><b>$".$this->getUsername()."</b></p><br />";
+            $s .= "source='".$_SERVER['PHP_SELF']."/getImage.php?id=".$this->getUsername()."'";
+        $s .= "</div>";
+        return $s;
     }
 }

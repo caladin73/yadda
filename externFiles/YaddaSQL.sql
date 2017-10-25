@@ -57,11 +57,15 @@ go
 /*oprettet*/
 CREATE VIEW view_yaddas_no_replies 
 AS 
-SELECT y.YaddaID,y.Text,y.Username,y.DateAndTime 
+SELECT y.*, (
+        SELECT  COUNT(r.YaddaID)
+        FROM    Reply r
+        WHERE   r.YaddaID = y.YaddaID
+        ) as replies
 FROM Yadda y 
 where y.YaddaID NOT in (select r.YaddaIDReply 
                         from Reply r) 
-ORDER BY y.DateAndTime, y.YaddaID 
+ORDER BY y.DateAndTime, y.YaddaID
 
 /*************************** FUNCTION *****************************/
 /*oprettet*/

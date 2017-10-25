@@ -34,7 +34,6 @@ class Controller {
                     echo "<br />";
                 }*/
                 
-                
                 $this->model = new Yadda(null, null, null, null, null, null, null); // init a model
                 $view1 = new YaddaView($this->model);// init a view
                 if (count($this->post) > 0) {

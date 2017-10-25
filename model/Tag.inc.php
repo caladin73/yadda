@@ -17,6 +17,28 @@ class Tag {
         $this->tagName = $TagName;
         $this->yaddaID = $YaddaID;
     }
+ 
+    /**
+     * Returns text with tag link formatting. Html.
+     * @return string
+     */
+    public static function getTextWithTagLinks($text) {
+        $s = "";
+        
+        $tokens = explode(" ",$text);
+        
+        foreach ($tokens as $tok) {
+            if(preg_match("/¤/", $tok)) {
+                $s .= "<a href='TODO_getyaddaswiththistag.php?tag=".$tok."'>".$tok."</a> ";
+                
+            } else {
+                $s .= $tok." ";
+            }
+                
+        }
+        
+        return $s;
+    }
     
     public static function getTagsInText($text) {
         return preg_grep("/^Â¤\w+/", explode(' ', $text));     
@@ -29,38 +51,32 @@ class Tag {
         $this->tagName = $TagName;
     }
        
-    public static function create($tags) {
+    public static function create($tags, $yaddaID) {
         
-        
-        
-        $sql = sprintf("insert into Tags (Tagname, YaddaID) 
-                        values ('%s', '%s')"
-                            , $this->getCode()
-                            , $this->getName()
-                            , $this->getContinent()
-                            , $this->getRegion()
-                            , $this->getSurfacearea()
-                            , $this->getIndepyear()
-                            , $this->getPopulation()
-                            , $this->getLifeexpectancy()
-                            , $this->getGnp()
-                            , $this->getGnpold()
-                            , $this->getLocalname()
-                            , $this->getGovernmentform()
-                            , $this->getHeadofstate()
-                            , $this->getCapital()
-                            , $this->getCode2()
-                      );
+        if(isset($yaddaID) && strcmp($yaddaID, '')<>0 && count($tags) > 0) {
+            
+            $sql = "insert into Tag (Tagname, YaddaID) values ";
 
-        $dbh = Model::connect();
-        try {
-            $q = $dbh->prepare($sql);
-            $q->execute();
-        } catch(PDOException $e) {
-            printf("<p>Insert failed: <br />%s<br/>%s</p>\n",
-                $e->getMessage(), $sql);
+            foreach($tags as $x => $x_value) {
+
+                $sql .= sprintf(" ('%s', '%s'),"
+                                    , $x_value
+                                    , $yaddaID
+                                );
+            }
+            $sql = substr($sql, 0, -1); // fjern sidste ','
+            
+            $dbh = Model::connect();
+            try {
+                $q = $dbh->prepare($sql);
+                $q->execute();
+            } catch(PDOException $e) {
+                printf("<p>Insert failed on Tag: <br />%s<br/>%s</p>\n",
+                    $e->getMessage(), $sql);
+                throw $e;
+            }
+            $dbh->query('commit');
         }
-        $dbh->query('commit');
     }
     
     public function getTag () {

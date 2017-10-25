@@ -15,6 +15,7 @@
  */
 class Authentication extends AuthA {
     const DISPVAR = 'waldo42';
+    const DISPVAR2 = 'waldo43';
     private $name;
 
     private function __construct($voter, $pwd) {
@@ -22,12 +23,21 @@ class Authentication extends AuthA {
             self::dbLookUp($voter, $pwd);         // invoke auth
             $_SESSION[self::SESSVAR] = $this->getEmail(); // if succesfull
             $_SESSION[self::DISPVAR] = $this->getName();   // if succesfull
+            $_SESSION[self::DISPVAR2] = $this->getUsername();   // if succesfull
         }
         catch (Exception $e) {
             self::$logInstance = NULL;
         }    
     }
 
+    /*public static function getEmail() {
+        return $_SESSION[self::SESSVAR];
+    }*/
+    
+    public static function getUsername() {
+        return $_SESSION[self::DISPVAR2];
+    }
+    
     public static function authenticate($user, $pwd) {
         if (self::$logInstance === NULL) {
             self::$logInstance = new Authentication($user, $pwd);
@@ -63,7 +73,7 @@ class Authentication extends AuthA {
         return $this->name;
     }
     
-    public static function getDispvar() {
-        return $_SESSION[self::DISPVAR];
-    }
+    
+    
+    
 }
