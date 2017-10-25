@@ -18,8 +18,8 @@ class Yadda {
     function __construct($Text, $Username) {
         $this->text = $Text;
         $this->username = $Username;
-        $this->dateAndTime = $DateAndTime;
-        $this->tagList = $TagList;
+     //TODO   $this->dateAndTime = $DateAndTime;
+        //TODO$this->tagList = $TagList;
         $this->level = 0;
     }
     

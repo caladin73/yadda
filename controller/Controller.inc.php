@@ -9,6 +9,7 @@ require_once 'model/Model.inc.php';
 require_once 'model/Users.inc.php';
 require_once 'view/LoginView.inc.php';
 require_once 'view/UserView.inc.php';
+require_once 'view/YaddaView.inc.php';
 require_once 'model/test_hieraci_data.php';
 require_once 'model/Tag.inc.php';
 
@@ -24,16 +25,25 @@ class Controller {
         switch ($this->function) {
             case 'yadda':
                 
-                $tags = Tag::getTagsInText('Der var engang en lille ¤prinsesse som der gerne ville have en pony ¤pony');
+             /*   $tags = Tag::getTagsInText('Der var engang en lille ¤prinsesse som der gerne ville have en pony ¤pony');
                 //TODO insert tags in DB
                 Tag::getTagsInText($tags);
                 
                 foreach($tags as $x => $x_value) {
                     echo "Key=" . $x . ", Value=" . $x_value;
                     echo "<br />";
-                }
+                }*/
                 
+                
+                $this->model = new Yadda(null, null, null, null, null, null, null); // init a model
+                $view1 = new YaddaView($this->model);// init a view
+                if (count($this->post) > 0) {
+                    $this->createYadda($this->post);               // activate controller
+                }
+                $view1->display();
                 break;
+                
+                
             case 'hieraci':
                 $data = new test_hieraci_data();
           //      $data->rebuild_tree(1, 1);
@@ -74,14 +84,7 @@ class Controller {
                 }
                 header("Location: ./index.php");
                 break;
-            case 'yadda':   //yadda form
-                $this->model = new Yadda(null, null, null, null, null, null, null); // init a model
-                $view1 = new YaddaView($this->model);// init a view
-                if (count($this->post) > 0) {
-                    $this->createYadda($this->post);               // activate controller
-                }
-                $view1->display();
-                break;
+            
             //case osv...
         }
     }
