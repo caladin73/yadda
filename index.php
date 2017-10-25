@@ -10,7 +10,6 @@ and open the template in the editor.
         <title>Yadda Yadda Yadda &#153</title>
     </head>
     <body>
-        <p>Yadda Yadda Yadda &#153</p>
         <?php
             session_start();
             require_once './controller/Controller.inc.php'; // domainmodel
