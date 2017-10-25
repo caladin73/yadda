@@ -56,7 +56,7 @@ class Controller {
                 break;
             case 'register':   //user create
                 $this->model = new Users(null, null, null, null, null, null, null); // init a model
-                $view1 = new UserView($this->model);                  // init a view
+                $view1 = new UserView($this->model);// init a view
                 if (count($this->post) > 0) {
                     $this->createUser($this->post);               // activate controller
                 }
@@ -73,6 +73,14 @@ class Controller {
                     $this->updateUser($this->post['uid']);               // activate controller
                 }
                 header("Location: ./index.php");
+                break;
+            case 'yadda':   //yadda form
+                $this->model = new Yadda(null, null, null, null, null, null, null); // init a model
+                $view1 = new YaddaView($this->model);// init a view
+                if (count($this->post) > 0) {
+                    $this->createYadda($this->post);               // activate controller
+                }
+                $view1->display();
                 break;
             //case osv...
         }
@@ -124,7 +132,7 @@ class Controller {
     public function createUser($p) {
         if (isset($p) && count($p) > 0) {
             $p['id'] = null; // augment array with dummy
-            $user = User::createObject($p);  // object from array
+            $user = Users::createObject($p);  // object from array
             $user->create();         // model method to insert into db
             $p = array();
         }

@@ -4,7 +4,9 @@
  * @Project: YaddaYaddaYadda
  * @Author: Daniel, Jesper, Marianne & Peter
  */
+
 require_once 'View.inc.php';
+
 class UserView extends View {
     
     public function __construct($model) {
