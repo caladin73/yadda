@@ -13,6 +13,37 @@ class Tag {
     private $tagName;
     private $yaddaID;
     
+    function __construct($TagName, $YaddaID) {
+        $this->tagName = $TagName;
+        $this->yaddaID = $YaddaID;
+    }
+    
+    public static function getTagsInText($text) {
+        
+        return preg_grep("/^¤\w+/", explode(' ', $text));
+        
+      /*  if (preg_match("/(¤)/", $text)) {
+            
+        
+            $tok = strtok($text, " ");
+            $tags = array();
+
+            while ($tok !== false) {
+               // echo "Word=$tok<br />";
+                $tok = strtok(" ");
+
+                if (strpos($tok, '¤') !== false) {
+             //       echo 'true';
+                    array_push($tags, $tok);
+                }
+            //    echo "Left=$tok<br />";
+            }
+
+           // $tags = strtok($text, ' ');
+        }
+        return $tags;*/
+    }
+    
     public function getTagName() {
         return $this->tagName;
     }
@@ -36,10 +67,6 @@ class Tag {
         
     }
     
-    function __construct($TagName, $YaddaID) {
-        $this->tagName = $TagName;
-        $this->yaddaID = $YaddaID;
-    }
     function getYaddaID() {
         return $this->yaddaID;
     }

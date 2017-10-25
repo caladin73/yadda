@@ -10,6 +10,7 @@ require_once 'model/Users.inc.php';
 require_once 'view/LoginView.inc.php';
 require_once 'view/UserView.inc.php';
 require_once 'model/test_hieraci_data.php';
+require_once 'model/Tag.inc.php';
 
 class Controller {
     private $model; // bliver sat i action()
@@ -21,11 +22,20 @@ class Controller {
     // Called with param in URL: ?f=
     public function action() {
         switch ($this->function) {
+            case 'mn':
+                
+                $tags = Tag::getTagsInText('Der var engang en lille ¤prinsesse som der gerne ville have en pony ¤pony');
+                //TODO insert tags in DB
+                foreach($tags as $x => $x_value) {
+                    echo "Key=" . $x . ", Value=" . $x_value;
+                    echo "<br />";
+                }
+                break;
             case 'hieraci':
                 $data = new test_hieraci_data();
-                $data->rebuild_tree(1, 1);
+          //      $data->rebuild_tree(1, 1);
                 $data->display_children(1, 0);
-                //header("Location: ./model/test_hieraci_data.php");
+                
                 break;
             case 'login':   //auth
                 $this->model = new Users(null, null, null, null, null, null, null);

@@ -13,6 +13,7 @@ class Yadda {
     private $username;
     private $dateAndTime;
     private $tagList; // array
+    private $level; // hvad niveau er det i hierciet
     
     function __construct($YaddaID, $Text, $Username, $DateAndTime, $TagList) {
         $this->yaddaID = $YaddaID;
@@ -20,6 +21,7 @@ class Yadda {
         $this->username = $Username;
         $this->dateAndTime = $DateAndTime;
         $this->tagList = $TagList;
+        $this->level = 0;
     }
     
     public function getYaddaID() {
