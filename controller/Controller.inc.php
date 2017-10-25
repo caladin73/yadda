@@ -22,14 +22,23 @@ class Controller {
     // Called with param in URL: ?f=
     public function action() {
         switch ($this->function) {
-            case 'mn':
+            case 'pictype':
+                
+                $s = "<img source='http://localhost/Yadda/model/getImage.php?id=haffe' alt='pic'>";
+                echo $s;
+                
+                break;
+            case 'yadda':
                 
                 $tags = Tag::getTagsInText('Der var engang en lille ¤prinsesse som der gerne ville have en pony ¤pony');
                 //TODO insert tags in DB
+                Tag::getTagsInText($tags);
+                
                 foreach($tags as $x => $x_value) {
                     echo "Key=" . $x . ", Value=" . $x_value;
                     echo "<br />";
                 }
+                
                 break;
             case 'hieraci':
                 $data = new test_hieraci_data();

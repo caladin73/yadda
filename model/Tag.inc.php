@@ -19,29 +19,7 @@ class Tag {
     }
     
     public static function getTagsInText($text) {
-        
-        return preg_grep("/^¤\w+/", explode(' ', $text));
-        
-      /*  if (preg_match("/(¤)/", $text)) {
-            
-        
-            $tok = strtok($text, " ");
-            $tags = array();
-
-            while ($tok !== false) {
-               // echo "Word=$tok<br />";
-                $tok = strtok(" ");
-
-                if (strpos($tok, '¤') !== false) {
-             //       echo 'true';
-                    array_push($tags, $tok);
-                }
-            //    echo "Left=$tok<br />";
-            }
-
-           // $tags = strtok($text, ' ');
-        }
-        return $tags;*/
+        return preg_grep("/^¤\w+/", explode(' ', $text));     
     }
     
     public function getTagName() {
@@ -51,8 +29,38 @@ class Tag {
         $this->tagName = $TagName;
     }
        
-    public function create() {
+    public static function create($tags) {
         
+        
+        
+        $sql = sprintf("insert into Tags (Tagname, YaddaID) 
+                        values ('%s', '%s')"
+                            , $this->getCode()
+                            , $this->getName()
+                            , $this->getContinent()
+                            , $this->getRegion()
+                            , $this->getSurfacearea()
+                            , $this->getIndepyear()
+                            , $this->getPopulation()
+                            , $this->getLifeexpectancy()
+                            , $this->getGnp()
+                            , $this->getGnpold()
+                            , $this->getLocalname()
+                            , $this->getGovernmentform()
+                            , $this->getHeadofstate()
+                            , $this->getCapital()
+                            , $this->getCode2()
+                      );
+
+        $dbh = Model::connect();
+        try {
+            $q = $dbh->prepare($sql);
+            $q->execute();
+        } catch(PDOException $e) {
+            printf("<p>Insert failed: <br />%s<br/>%s</p>\n",
+                $e->getMessage(), $sql);
+        }
+        $dbh->query('commit');
     }
     
     public function getTag () {
