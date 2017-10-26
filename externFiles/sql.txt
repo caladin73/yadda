@@ -4,6 +4,7 @@ use yadda;
 
 create table Users(
     Username varchar(16) not null,
+    Name varchar(16) not null,
     Password blob not null,
     Email varchar(32) not null,
     ProfilImage blob not null,
@@ -16,7 +17,7 @@ create table Users(
 create table Listener(
     UsernameListener varchar(16) not null,
     UsernameListensTo varchar(16) not null,
-    primary key(UsernameListener),
+    primary key(UsernameListener, UsernameListensTo),
     foreign key(UsernameListener) references Users(Username) on delete cascade,
     foreign key(UsernameListensTo) references Users(Username) on delete cascade
 );
@@ -32,16 +33,21 @@ create table Yadda(
 
 create table Tag(
     YaddaID int(16) not null,
-    Tagname varchar(16) not null
+    Tagname varchar(16) not null,
+    primary key(YaddaID, Tagname),
+    foreign key(YaddaID) references Yadda(YaddaID) on delete cascade
 );
 
 create table Image(
     YaddaID int(16) not null,
-    Imagedata blob not null
+    Imagedata blob not null,
+    primary key(YaddaID)
 );
 
 create table Reply(
     YaddaID int(16) not null,
     YaddaIDReply int(16) not null,
-    primary key(YaddaID)
+    primary key(YaddaID, YaddaIDReply),
+    foreign key(YaddaID) references Yadda(YaddaID) on delete cascade,
+    foreign key(YaddaIDReply) references Yadda(YaddaID) on delete cascade
 );

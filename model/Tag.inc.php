@@ -13,6 +13,37 @@ class Tag {
     private $tagName;
     private $yaddaID;
     
+    function __construct($TagName, $YaddaID) {
+        $this->tagName = $TagName;
+        $this->yaddaID = $YaddaID;
+    }
+ 
+    /**
+     * Returns text with tag link formatting. Html.
+     * @return string
+     */
+    public static function getTextWithTagLinks($text) {
+        $s = "";
+        
+        $tokens = explode(" ",$text);
+        
+        foreach ($tokens as $tok) {
+            if(preg_match("/¤/", $tok)) {
+                $s .= "<a href='TODO_getyaddaswiththistag.php?tag=".$tok."'>".$tok."</a> ";
+                
+            } else {
+                $s .= $tok." ";
+            }
+                
+        }
+        
+        return $s;
+    }
+    
+    public static function getTagsInText($text) {
+        return preg_grep("/^¤\w+/", explode(' ', $text));     
+    }
+    
     public function getTagName() {
         return $this->tagName;
     }
@@ -20,8 +51,32 @@ class Tag {
         $this->tagName = $TagName;
     }
        
-    public function create() {
+    public static function create($tags, $yaddaID) {
         
+        if(isset($yaddaID) && strcmp($yaddaID, '')<>0 && count($tags) > 0) {
+            
+            $sql = "insert into Tag (Tagname, YaddaID) values ";
+
+            foreach($tags as $x => $x_value) {
+
+                $sql .= sprintf(" ('%s', '%s'),"
+                                    , $x_value
+                                    , $yaddaID
+                                );
+            }
+            $sql = substr($sql, 0, -1); // fjern sidste ','
+            
+            $dbh = Model::connect();
+            try {
+                $q = $dbh->prepare($sql);
+                $q->execute();
+            } catch(PDOException $e) {
+                printf("<p>Insert failed on Tag: <br />%s<br/>%s</p>\n",
+                    $e->getMessage(), $sql);
+                throw $e;
+            }
+            $dbh->query('commit');
+        }
     }
     
     public function getTag () {
@@ -36,10 +91,6 @@ class Tag {
         
     }
     
-    function __construct($TagName, $YaddaID) {
-        $this->tagName = $TagName;
-        $this->yaddaID = $YaddaID;
-    }
     function getYaddaID() {
         return $this->yaddaID;
     }
