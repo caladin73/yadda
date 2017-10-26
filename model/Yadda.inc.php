@@ -1,5 +1,4 @@
 <?php
-
 /* 
  * model/Yadda.inc.php
  * @Project: YaddaYaddaYadda
@@ -137,9 +136,7 @@ class Yadda {
         } catch(PDOException $e) {
             die("<p>Insert of Yadda failed: <br />%s</p>\n".
                 $e->getMessage());
-        }
-        
-   //     $lastID = $dbh->lastInsertId();
+        }       
         
         $sql = "INSERT INTO Image (Imagedata, mimetype, YaddaID) values (:imagedata, :imagetype, :yaddaid)";
         

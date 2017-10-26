@@ -1,7 +1,6 @@
 <?php
     session_start();
-    require_once './model/DbP.inc.php';
-    require_once './model/DbH.inc.php';
+    require_once './model/Model.inc.php';
     $dbh = Model::connect();
 
     foreach($_GET as $key => $value) {
