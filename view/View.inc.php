@@ -43,9 +43,9 @@ abstract class View {
         $s = sprintf("        <header>
             <h1>YaddaYaddaYadda &trade;</h1>\n
             <ul id='menu'>\n
-                <li><a href='%s?f=home'>Home</a></li>\n",
+                <li><a href='%s'>Home</a></li>\n",
                 $_SERVER['PHP_SELF']);
-        if (!Authentication::isAuthenticated()) {
+        if (Authentication::isAuthenticated()) {
             $s .= sprintf("               
                 <li><a href='%s?f=yadda'>Yaddas</a></li>\n
                 <li><a href='%s?f=profile'>Profile</a></li>\n",

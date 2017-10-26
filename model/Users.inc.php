@@ -5,160 +5,172 @@
 // Made On : Oct 23, 2017 2:25:56 PM  
 //
 
-error_reporting(E_ALL);
+    error_reporting(E_ALL);
 
-require_once 'DbP.inc.php';
-require_once 'DbH.inc.php';
+    require_once 'DbP.inc.php';
+    require_once 'DbH.inc.php';
 
-class Users extends Model {
-    private $username;
-    private $password;
-    private $email;
-    private $name;
-    private $admin;
-    private $activated;
-    private $profileImage;
-    
-    function __construct($Username, $Password, $Email, $Name, $ProfileImage) {
-        $this->username = $Username;
-        $this->password = $Password;
+    class Users extends Model
+    {
+        private $username;
+        private $password;
+        private $name;
+        private $email;
+        private $admin;
+        private $activated;
+
+        function __construct($Username, $Password, $Name, $Email, $Activated)
+        {
+            $this->username = $Username;
+            $this->password = $Password;
         $this->email = $Email;
-        $this->name = $Name;
-        $this->profileImage = $ProfileImage;
-    }
+            $this->name = $Name;
+            $this->email = $Email;
+            $this->activated = $Activated;
+        }
 
     public function getUsername() {
-        return $this->username;
-    }
+            return $this->username;
+        }
     public function setUsername($Username) {
-        $this->username = $Username;
-    }
+            $this->username = $Username;
+        }
 
     public function getPassword() {
-        return $this->password;
-    }
+            return $this->password;
+        }
     public function setPassword($Password) {
-        $this->password = $Password;
-    }
-    
+            $this->password = $Password;
+        }
+
     public function getEmail() {
-        return $this->email;
-    }
+            return $this->email;
+        }
     public function setEmail($Email) {
-        $this->email = $Email;
-    }
-    
+            $this->email = $Email;
+        }
+
     public function getName() {
-        return $this->name;
-    }
+            return $this->name;
+        }
     public function setName($Name) {
-        $this->name = $Name;
-    }
-    
+            $this->name = $Name;
+        }
+
     public function getAdmin() {
-        return $this->admin;
-    }
+            return $this->admin;
+        }
     public function setAdmin($Admin) {
-        $this->admin = $Admin;
-    }
-    
+            $this->admin = $Admin;
+        }
+
     public function getActivated() {
-        return $this->activated;
-    }
+            return $this->activated;
+        }
     public function setActivated($Activated) {
-        $this->activated = $Activated;
-    }
-    
-    public function getProfileImage() {
-        return $this->profileImage;
-    }
-    public function setProfileImage($ProfileImage) {
-        $this->profileImage = $ProfileImage;
-    }
-    
-    public function create() {
-        $sql = "insert into Users (Username, Password, Name, Email, Admin, ProfilImage, Activated) 
-                        values (:uid, :pwd, :name, :email, :admin, :profileimg, :activated)";
+            $this->activated = $Activated;
+        }
 
-        $dbh = Model::connect();
-        try {
-            $q = $dbh->prepare($sql);
-            $q->bindValue(':uid', $this->getUsername());
-            $q->bindValue(':pwd', password_hash($this->getPassword(), PASSWORD_DEFAULT));
-            $q->bindValue(':name', $this->getName());
-            $q->bindValue(':email', $this->getEmail());
-            $q->bindValue(':admin', 0);
+
+        public function create()
+        {
+
+            if(!(isset($_FILES['profileimage']))) {
+                header("Location: index.php?f=register&error=2");
+            } else if ($_FILES['profileimage']['error'] > UPLOAD_ERR_OK) {
+
+                if($_FILES['profileimage']['error'] == UPLOAD_ERR_FORM_SIZE) {
+                    $_SESSION["error"] = "The file is too big";
+                }
+                header("Location: index.php?f=register&error=1");
+            } else {
+
+
+            $sql = "insert into Users (Username, Password, Name, Email, Admin, ProfilImage, Activated, mimetype) 
+                        values (:uid, :pwd, :name, :email, :admin, :profileimg, :activated, :mimetype)";
+
+            $ProfileImage = addslashes(file_get_contents($_FILES['profileimage']['tmp_name']));
+            $imagetype = $_FILES['profileimage']['type'];
+
+            $dbh = Model::connect();
+            try {
+                $q = $dbh->prepare($sql);
+                $q->bindValue(':uid', $this->getUsername());
+                $q->bindValue(':pwd', password_hash($this->getPassword(), PASSWORD_DEFAULT));
+                $q->bindValue(':name', $this->getName());
+                $q->bindValue(':email', $this->getEmail());
+                $q->bindValue(':admin', 0);
             $q->bindValue(':profileimg', $this->getProfileImage());
-            $q->bindValue(':activated', 0);
-            $q->execute();
-        } catch(PDOException $e) {
-            printf("<p>Insert of user failed: <br/>%s</p>\n",
-                $e->getMessage());
-        }
-        $dbh->query('commit');
-    }
-    
-    public function activateUser () {
-        $sql = "UPDATE Users SET activated = (:activated) WHERE username = (:username)";
+                $q->bindValue(':activated', 0);
+                $q->bindValue(':mimetype', $imagetype);
+                $q->execute();
+            } catch (PDOException $e) {
+                printf("<p>Insert of user failed: <br/>%s</p>\n",
+                    $e->getMessage());
+            }
+            $dbh->query('commit');
+        }}
 
-        $dbh = DbH::connect();
-        try {
-            $q = $dbh->prepare($sql);
-            $q->bindValue(':username', $this->getUsername());
-            $q->bindValue(':activated', $this->getActivated());
-            $q->execute();
-        } catch(PDOException $e) {
-            printf("<p>Insert of user failed: <br/>%s</p>\n",
-                $e->getMessage());
+    public function activateUser () {
+            $sql = "UPDATE Users SET activated = (:activated) WHERE username = (:username)";
+
+            $dbh = Model::connect();
+            try {
+                $q = $dbh->prepare($sql);
+                $q->bindValue(':username', $this->getUsername());
+                $q->bindValue(':activated', $this->getActivated());
+                $q->execute();
+            } catch (PDOException $e) {
+                printf("<p>Insert of user failed: <br/>%s</p>\n",
+                    $e->getMessage());
+            }
+            $dbh->query('commit');
         }
-        $dbh->query('commit');
-    }
-    
-    public function retrieveMany () {
-        
-    }
-    public static function retrieveOne ($userid) {
-       
+
+        public static function retrieveMany()
+        {
+            $users = array();
         $dbh = Model::connect();
-        
-        $sql = "SELECT * FROM view_yaddas_no_replies where Username=".$userid;
-        
-        
+
+        $sql = "select *";
+        $sql .= " from view_allUsers";
         try {
             $q = $dbh->prepare($sql);
             $q->execute();
             while ($row = $q->fetch()) {
-               // $yadda = self::createObject($row);
-                //$yaddaID, $text, $username, $dateAndTime, $lft, $rght
-                $yadda = new Yadda($row["YaddaID"], $row["Text"], $row["Username"], $row["DateAndTime"], $row["lft"], $row["rght"]);
-            }   
-        } catch (PDOException $e) {
-            printf("<P>No User (retrieveOne) could be displayed: <br/>%s</p>\n",
-                    $e->getMessage());
+                $user = new Users($row['Username'], null, $row['Name'], $row['Email'], $row['Activated']);
+                //$user = self::createObject($row);
+                array_push($users, $user);
+            }
+        } catch(PDOException $e) {
+            printf("<p>Query of users failed: <br/>%s</p>\n",
+                $e->getMessage());
         } finally {
-            return $yadda;            
+            return $users;
         }
-    }
-    
-    public function update() {
+        }
         
-    }
-    
-    public static function createObject ($a) {
-        $act = isset($a['activated']) ? $a['activated'] : null;
-        $user = new Users($a['username'], $a['email'], $a['name'], $a['profileimage'], $act);
-        if (isset($a['password'])) {
-            $user->setPassword($a['password']);
+        public function __toString() {
+            return $this->getUsername()." - ".($this->activated ? ', activated' : ', not activated');
         }
-        return $user;
+
+                public static function retrieveOne()
+        {
+
+        }
+
+        public function update()
+        {
+
+        }
+
+        public static function createObject($a)
+        {
+            //$Username, $Password, $Name, $Email, $ProfileImage (Order important!)
+            $user = new Users($a['username'], $a['password'], $a['name'], $a['email'], $a['activated']);
+            if (isset($a['password'])) {
+                $user->setPassword($a['password']);
+            }
+            return $user;
+        }
     }
-    
-    public function __toString2() {
-        $s = "<div>";
-            $s .= "<img source='".$_SERVER['PHP_SELF']."/getImage.php?id=".$this->getUsername()."'>";
-            $s .= "<p><b>$".$this->getUsername()."</b></p><br />";
-            $s .= "source='".$_SERVER['PHP_SELF']."/getImage.php?id=".$this->getUsername()."'";
-        $s .= "</div>";
-        return $s;
-    }
-}

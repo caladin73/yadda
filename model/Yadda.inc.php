@@ -1,11 +1,15 @@
 <?php
 
-//
-// Author : Jesper Uth Krab
-// Made On : Oct 23, 2017 2:48:38 PM  
-//
+/* 
+ * model/Yadda.inc.php
+ * @Project: YaddaYaddaYadda
+ * @Author: Daniel, Jesper, Marianne & Peter
+ */
 
 error_reporting(E_ALL);
+
+require_once 'Authentication.inc.php';
+require_once 'Tag.inc.php';
 require_once 'Reply.inc.php';
 
 class Yadda {
@@ -13,13 +17,9 @@ class Yadda {
     private $text;
     private $username;
     private $dateAndTime;
-    private $tagList; // array
-    private $lft; // hieraci
-    private $rght; // hieraci
-    private $level; // hvad niveau er det i hieraciet
-    private $numOfReplies;
-    private $child; // reply true/false
-    private $parentYaddaID;
+    private $tagList;
+    private $imagedata;
+    private $imagetype;
     
     function __construct($yaddaID, $text, $username, $dateAndTime, $lft, $rght) {
         $this->yaddaID = $yaddaID;
@@ -33,6 +33,10 @@ class Yadda {
         $this->child = false;
         $this->parentYaddaID = false;
         $this->setTagList(Tag::getTagsInText($this->text));
+    }
+    
+    function getImagedata() {
+        return $this->imagedata;
     }
     
     function getParentYaddaID() {
@@ -94,12 +98,24 @@ class Yadda {
         $this->tagList = $TagList;
     }
     
-    public function create() {
-        
-        //$yaddaID, $text, $username, $dateAndTime, $lft, $rght
-        $sql = "INSERT INTO Yadda (Text, Username) values (:text, :username)";
+    function getImagetype() {
+        return $this->imagetype;
+    }
 
+    function setImagedata($imagedata) {
+        $this->imagedata = $imagedata;
+    }
+
+    function setImagetype($imagetype) {
+        $this->imagetype = $imagetype;
+    }
+
+    public function create() {            
+                
+        $sql = "INSERT INTO Yadda (Text, Username) values (:text, :username)";
         $dbh = Model::connect();
+        $lastID;
+        
         try {
             $q = $dbh->prepare($sql);
             $q->bindValue(':text', $this->getText());
@@ -107,9 +123,6 @@ class Yadda {
             
             // Get ID from inserted Yadda
             if ($q->execute() === TRUE) {
-                //$lastID = $dbh->insert_id(); NO
-                //$lastID = $q->insert_id(); NO
-                //$lastID = mysqli_insert_id($dbh); NO
                 $lastID = $dbh->lastInsertId(); 
                 
                 Tag::create($this->getTagList(), $lastID);
@@ -118,37 +131,49 @@ class Yadda {
                     $r = new Reply($this->getParentYaddaID(), $lastID);
                     $r->create();
                     $this->rebuildTree($this->getParentYaddaID());
-//                    $this->rebuild_tree($this->getParentYaddaID(), 1);
                 }
-                
-               // $data = new test_hieraci_data(); // hieraci
-//                $this->rebuild_tree($lastID, 1);
             }
             $dbh->query('commit');
         } catch(PDOException $e) {
-            printf("<p>Insert of Yadda failed: <br/>%s</p>\n",
+            die("<p>Insert of Yadda failed: <br />%s</p>\n".
                 $e->getMessage());
-            $dbh->query('rollback'); //TODO Tags skal ogsÃ¥ fjernes
+        }
+        
+   //     $lastID = $dbh->lastInsertId();
+        
+        $sql = "INSERT INTO Image (Imagedata, mimetype, YaddaID) values (:imagedata, :imagetype, :yaddaid)";
+        
+        try {
+            $q = $dbh->prepare($sql);
+            $q->bindValue(':imagedata', $this->getImagedata());
+            $q->bindValue(':imagetype', $this->getImagetype());
+            $q->bindValue(':yaddaid', $lastID);
+            
+            $q->execute();
+            $dbh->query('commit');
+            
+        } catch(PDOException $e) {
+            
+            die("<p>Insert of Image failed: <br />%s</p>\n".$e->getMessage());
+            $dbh->query('rollback'); //TODO Tags skal også fjernes
         }
     }
         
-    public static function createObject ($a) {
+    public static function createObject ($a, $f) {
         
-        //TODO Tjek at felterne er korrekte/udfyldte
-        
-        // TODO aktiver Session fremfor predefined user
-        //$un = $_SESSION['user'];
-        $username = 'Jesper';
-        //$yaddaID, $text, $username, $dateAndTime, $lft, $rght
-                
+        $username = Authentication::getLoginId();        
         $yadda = new Yadda(null, $a['text'], $username, null, 0, 0);
+        
+        $imagedata = addslashes(file_get_contents($f['img']['tmp_name']));
+        $imagetype = $f['img']['type'];
+        
+        $yadda->setImagedata($imagedata);
+        $yadda->setImagetype($imagetype);
         
         if($a['reply']) {
             $yadda->setChild(true);
             $yadda->setParentYaddaID($a['parentid']);
         }
-        //$tags = Tag::getTagsInText('Der var engang en lille Â¤prinsesse som der gerne ville have en pony Â¤pony');
-        //TODO insert tags in DB
         
         return $yadda;
     }
@@ -198,9 +223,14 @@ class Yadda {
                         }
                     }
 
-                    $s .= "<form action='/Yadda/index.php?f=yadda&reply=true' method='post'>\n
+                    $s .= "<form action='/Yadda/index.php?f=yadda&reply=true' method='post' enctype='multipart/form-data'>\n
                             <input type='text' name='text'>\n
                             <input type='hidden' name='parentid' value=".$this->getYaddaID().">\n
+                            <p>\n
+                                Image:<br/>
+                                <input type='hidden' name='MAX_FILE_SIZE' value='131072'/>
+                                <input type='file' name='img' accept='image/*' required/>\n
+                            </p>\n
                             <input type='submit' name='reply'>\n
                           </form> ";
             
