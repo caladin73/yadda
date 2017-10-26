@@ -167,11 +167,10 @@ class Yadda {
         $yadda->setImagedata($imagedata);
         $yadda->setImagetype($imagetype);
         
-        if($a['reply']) {
+        if(isset($a['reply']) && $a['reply']) {
             $yadda->setChild(true);
             $yadda->setParentYaddaID($a['parentid']);
         }
-        
         return $yadda;
     }
 

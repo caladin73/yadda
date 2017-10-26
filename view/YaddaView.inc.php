@@ -34,17 +34,17 @@ class YaddaView extends View {
     
     private function yaddaForm() {
         $s = sprintf("
-            <form action='%s?f=yadda' method='post' enctype='multipart/form-data'>\n
+            <form action='%s?f=yadda' method='post' enctype='multipart/form-data' id='yaddaform'>\n
             <div class='gets'>\n
                 <h3>Post a Yadda &trade;!</h3>\n
                 <p>\n
-                    Message:<br/>
+                    Message:<br />
                     <input type='text' name='text' required />\n
                 </p>\n
                 <p>\n
-                    Image:<br/>
+                    Image:<br />
                     <input type='hidden' name='MAX_FILE_SIZE' value='131072'/>
-                    <input type='file' name='img' accept='image/*' required/>\n
+                    <input type='file' name='img' accept='image/*'/>\n
                 </p>\n
                 <p>\n
                     <input type='submit' value='Go'/>
@@ -53,6 +53,7 @@ class YaddaView extends View {
         
         $s .= "          </div>\n";
         $s .= "          </form>\n";
+        include_once './js/validate.js';
         return $s;
     }
     
