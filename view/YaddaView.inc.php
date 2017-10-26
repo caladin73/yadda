@@ -8,7 +8,6 @@
 
 require_once 'view/View.inc.php';
 
-
 class YaddaView extends View {
     
     public function __construct($model) {
