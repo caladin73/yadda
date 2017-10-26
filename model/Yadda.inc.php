@@ -232,7 +232,6 @@ class Yadda {
                           </form> ";
             
         $s .= "</div>\n";
-        //str_repeat('&nbsp;&nbsp;',$this->getLevel())
         return $s;
     }
  

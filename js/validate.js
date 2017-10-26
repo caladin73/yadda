@@ -18,8 +18,8 @@
 
     var check = function (e) {
 
-        window.alert('hallo');
-
+        if()
+        
         if (document.forms.yaddaform.img.value == '') {
 
             window.alert("No image selected!");
