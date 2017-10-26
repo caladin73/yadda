@@ -6,6 +6,7 @@
 //
 
 error_reporting(E_ALL);
+require_once 'Reply.inc.php';
 
 class Yadda {
     private $yaddaID;
@@ -17,6 +18,8 @@ class Yadda {
     private $rght; // hieraci
     private $level; // hvad niveau er det i hieraciet
     private $numOfReplies;
+    private $child; // reply true/false
+    private $parentYaddaID;
     
     function __construct($yaddaID, $text, $username, $dateAndTime, $lft, $rght) {
         $this->yaddaID = $yaddaID;
@@ -27,7 +30,25 @@ class Yadda {
         $this->rght = $rght;
         $this->level = 0;
         $this->numOfReplies = 0;
+        $this->child = false;
+        $this->parentYaddaID = false;
         $this->setTagList(Tag::getTagsInText($this->text));
+    }
+    
+    function getParentYaddaID() {
+        return $this->parentYaddaID;
+    }
+
+    function setParentYaddaID($parentYaddaID) {
+        $this->parentYaddaID = $parentYaddaID;
+    }
+
+    function getChild() {
+        return $this->child;
+    }
+
+    function setChild($child) {
+        $this->child = $child;
     }
     
     public function getNumOfReplies() {
@@ -93,8 +114,15 @@ class Yadda {
                 
                 Tag::create($this->getTagList(), $lastID);
                 
-                $data = new test_hieraci_data(); // hieraci
-                $data->rebuild_tree($lastID, 1);
+                if($this->getChild()) { // this yadda is a reply
+                    $r = new Reply($this->getParentYaddaID(), $lastID);
+                    $r->create();
+                    $this->rebuildTree($this->getParentYaddaID());
+//                    $this->rebuild_tree($this->getParentYaddaID(), 1);
+                }
+                
+               // $data = new test_hieraci_data(); // hieraci
+//                $this->rebuild_tree($lastID, 1);
             }
             $dbh->query('commit');
         } catch(PDOException $e) {
@@ -115,9 +143,12 @@ class Yadda {
                 
         $yadda = new Yadda(null, $a['text'], $username, null, 0, 0);
         
+        if($a['reply']) {
+            $yadda->setChild(true);
+            $yadda->setParentYaddaID($a['parentid']);
+        }
         //$tags = Tag::getTagsInText('Der var engang en lille Â¤prinsesse som der gerne ville have en pony Â¤pony');
         //TODO insert tags in DB
-        
         
         return $yadda;
     }
@@ -152,15 +183,21 @@ class Yadda {
             $s .= "<span class='user'>\n"
                     ."<img width='20' height='20' src='getImage.php?id=".$this->getUsername()."' />\n"
                     ."<a href='getUserProfile.php?id=".$this->getUsername()."'><b> $".$this->getUsername().": </b></a>\n</span>\n"
-                    .Tag::getTextWithTagLinks($this->getText());
-            
-            if($this->getNumOfReplies() > 0) {
-                if($this->getNumOfReplies() == 1) {
-                    $s .= "<div class='reply'><a href='opendivwithreplies.js'>1 reply<a/></div>";
-                } else {
-                    $s .= "<div class='reply'><a href='opendivwithreplies.js'>".$this->getNumOfReplies()." replies</a></div>";
-                }
-            }
+                    .$this->getYaddaID().": ".Tag::getTextWithTagLinks($this->getText());
+                    
+                    if($this->getNumOfReplies() > 0) {
+                        if($this->getNumOfReplies() == 1) {
+                            $s .= "<div class='reply'><a href='opendivwithreplies.js'>1 reply<a/></div>";
+                        } else {
+                            $s .= "<div class='reply'><a href='opendivwithreplies.js'>".$this->getNumOfReplies()." replies</a></div>";
+                        }
+                    }
+
+                    $s .= "<form action='/Yadda/index.php?f=yadda&reply=true' method='post'>\n
+                            <input type='text' name='text'>\n
+                            <input type='hidden' name='parentid' value=".$this->getYaddaID().">\n
+                            <input type='submit' name='reply'>\n
+                          </form> ";
             
         $s .= "</div>\n";
         //str_repeat('&nbsp;&nbsp;',$this->getLevel())
@@ -243,7 +280,28 @@ class Yadda {
         } 
     } 
 
-    /* Er ikke sÃ¦rlig effektivt ved store trees */
+    private function rebuildTree($parentID) {
+        
+        $dbh = Model::connect();
+        
+        $sql = "SELECT lft FROM view_yaddas_no_replies where YaddaID = ".$parentID;
+        
+        try {
+            $q = $dbh->prepare($sql);
+            $q->execute();
+            while ($row = $q->fetch()) {
+               // $yadda = self::createObject($row);
+                //$yaddaID, $text, $username, $dateAndTime, $lft, $rght
+                $left = $row["lft"];
+                $this->rebuild_tree($this->getParentYaddaID(), $left);
+            }   
+        } catch (PDOException $e) {
+            printf("<P>Yadda rebuildTree failed: <br s/>%s</p>\n",
+                    $e->getMessage());
+        }
+    }
+    
+    /* Er ikke særlig effektivt ved store trees */
     public function rebuild_tree($parent, $left) {   //TODO
         $dbh = Model::connect();
     

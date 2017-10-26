@@ -28,7 +28,7 @@ class Tag {
         $tokens = explode(" ",$text);
         
         foreach ($tokens as $tok) {
-            if(preg_match("/¤/", $tok)) {
+            if(preg_match("/Â¤/", $tok)) {
                 $s .= "<a href='TODO_getyaddaswiththistag.php?tag=".$tok."'>".$tok."</a> ";
                 
             } else {
