@@ -213,7 +213,8 @@ class Yadda {
             $s .= "<span class='user'>\n"
                     ."<img width='20' height='20' src='getImage.php?id=".$this->getUsername()."' />\n"
                     ."<a href='getUserProfile.php?id=".$this->getUsername()."'><b> $".$this->getUsername().": </b></a>\n</span>\n"
-                    .$this->getYaddaID().": ".Tag::getTextWithTagLinks($this->getText());
+                    .$this->getYaddaID().": ".Tag::getTextWithTagLinks($this->getText())
+                    ."<img width='30' height='40' src='getYaddaImage.php?id=".$this->getYaddaID()."' />\n";
                     
                     if($this->getNumOfReplies() > 0) {
                         if($this->getNumOfReplies() == 1) {
