@@ -2,14 +2,14 @@
     session_start();
     require_once './model/DbP.inc.php';
     require_once './model/DbH.inc.php';
-    $dbh = DbH::getDbH();
+    $dbh = Model::connect();
 
     foreach($_GET as $key => $value) {
         $$key = trim($value);  // vars with names as in form
     }
     
     if(isset($id)) {
-            $sql  = "SELECT Imagedata, mimetype FROM Image where YaddaID = :id";
+        $sql  = "SELECT Imagedata, mimetype FROM Image where YaddaID = :id";
     
         try {    
             $q = $dbh->prepare($sql);

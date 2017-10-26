@@ -96,7 +96,7 @@
             $sql = "insert into Users (Username, Password, Name, Email, Admin, ProfilImage, Activated, mimetype) 
                         values (:uid, :pwd, :name, :email, :admin, :profileimg, :activated, :mimetype)";
 
-            $ProfileImage = addslashes(file_get_contents($_FILES['profileimage']['tmp_name']));
+            $profileImage = addslashes(file_get_contents($_FILES['profileimage']['tmp_name']));
             $imagetype = $_FILES['profileimage']['type'];
 
             $dbh = Model::connect();
@@ -107,7 +107,7 @@
                 $q->bindValue(':name', $this->getName());
                 $q->bindValue(':email', $this->getEmail());
                 $q->bindValue(':admin', 0);
-                $q->bindValue(':profileimg', $this->getProfileImage());
+                $q->bindValue(':profileimg', $profileImage);
                 $q->bindValue(':activated', 0);
                 $q->bindValue(':mimetype', $imagetype);
                 $q->execute();
