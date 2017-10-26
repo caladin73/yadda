@@ -178,7 +178,12 @@ class Yadda {
         }
     }
     public function __toString() {
-        $s = "<div class='yadda' style='position:relative;left:".($this->getLevel()*20)."px;'>\n";
+        
+        $indent = ($this->getLevel()*20);
+        if($this->getLevel() == 1) {
+            $indent = 20;
+        }
+        $s = "<div class='yadda' style='position:relative;left:".$indent."px;'>\n";
             //<div class='user'> background-color:red;
             $s .= "<span class='user'>\n"
                     ."<img width='20' height='20' src='getImage.php?id=".$this->getUsername()."' />\n"
@@ -241,7 +246,8 @@ class Yadda {
             $y->setNumOfReplies($row["replies"]);
             
           //  array_push($yaddas, $y);
-            $yaddas .= str_repeat('&nbsp;&nbsp;',$y->getLevel()).$y."\n"; 
+            //$yaddas .= str_repeat('&nbsp;&nbsp;',$y->getLevel()).$y."\n"; 
+            $yaddas .= $y."\n"; 
             // call this function again to display this 
             // child's children 
 

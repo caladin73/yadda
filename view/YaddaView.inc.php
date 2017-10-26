@@ -26,7 +26,7 @@ class YaddaView extends View {
                 , $yadda);
             
             $nodes = "";
-            $nodes = Yadda::getChildren($yadda->getYaddaID(), 0, $nodes);
+            $nodes = Yadda::getChildren($yadda->getYaddaID(), 1, $nodes);
             $s .= $nodes;
             /*foreach ($nodes as $node) {
                 $s .= str_repeat('&nbsp;&nbsp;',$node->getLevel()).$node."<br />";
