@@ -220,7 +220,8 @@ class Yadda {
                         }
                     }
 
-                    $s .= "<form action='/Yadda/index.php?f=yadda&reply=true' method='post' enctype='multipart/form-data'>\n
+                    $s .= "<form id='yaddareply' action='/Yadda/index.php?f=yadda&reply=true' method='post' enctype='multipart/form-data'>\n
+                            Message:
                             <input type='text' name='text'>\n
                             <input type='hidden' name='parentid' value=".$this->getYaddaID().">\n
                             <p>\n
@@ -228,7 +229,7 @@ class Yadda {
                                 <input type='hidden' name='MAX_FILE_SIZE' value='131072'/>
                                 <input type='file' name='img' accept='image/*' required/>\n
                             </p>\n
-                            <input type='submit' name='reply'>\n
+                            <input class='button' type='submit' name='reply' value='Reply'>\n
                           </form> ";
             
         $s .= "</div>\n";

@@ -35,30 +35,27 @@ class YaddaView extends View {
     private function yaddaForm() {
         $s = sprintf("
             <form action='%s?f=yadda' method='post' enctype='multipart/form-data' id='yaddaform'>\n
-            <div class='gets'>\n
-                <h3>Post a Yadda &trade;!</h3>\n
-                <p>\n
-                    Message:<br />
-                    <input type='text' name='text' required />\n
-                </p>\n
-                <p>\n
-                    Image:<br />
-                    <input type='hidden' name='MAX_FILE_SIZE' value='131072'/>
-                    <input type='file' name='img' accept='image/*'/>\n
-                </p>\n
-                <p>\n
-                    <input type='submit' value='Go'/>
-                </p>
+            <table id='create'>\n
+                <caption>Post a Yadda&trade;!</caption>\n
+                <tr>\n
+                    <td>Message:</td><td><input type='text' name='text' required /></td>\n
+                </tr>\n
+                <tr>\n
+                    <td>Image:</td><input type='hidden' name='MAX_FILE_SIZE' value='131072'/><td><input type='file' name='img' accept='image/*'/></td>\n
+                </tr>\n
+                <tr>\n
+                    <td><input class='button' type='submit' value='Go'/></td>
+                </tr>
             </div>", $_SERVER['PHP_SELF']);
         
-        $s .= "          </div>\n";
+        $s .= "          </table>\n";
         $s .= "          </form>\n";
         include_once './js/validate.js';
         return $s;
     }
     
     private function displayYadda() {
-        $s = sprintf("<main class='main'>\n%s\n%s</main>\n"
+        $s = sprintf("<main id='yaddasmain'>\n%s\n%s</main>\n"
                     , $this->yaddaForm()
                     , $this->displayManyYaddas());
         return $s;

@@ -23,7 +23,8 @@ abstract class View {
   <head>
     <meta charset='utf-8'/>
     <title>YaddaYaddaYadda &trade;</title>
-    <link rel='stylesheet' href='./css/styles.css'/>
+    <link rel='stylesheet' type='text/css' href='css/style.css'>
+    <link href='https://fonts.googleapis.com/css?family=Indie+Flower|Roboto:400,500,700' rel='stylesheet'>
   </head>
   <body>
 ");
@@ -64,7 +65,7 @@ abstract class View {
         $s .= sprintf("             </ul>\n        </header>\n");
         
         if (Authentication::isAuthenticated()) {
-            $s .= sprintf("<div>Welcome %s</div>", Authentication::getLoginId());
+            $s .= sprintf("<div class='welcome'><h1>Welcome $%s</h1></div>", Authentication::getLoginId());
         }
         return $s;
     }

@@ -29,8 +29,8 @@ class LoginView extends View {
                     <td></td>\n
                     <td>
                         <p>
-                        <input type='submit' value='OK'/>&nbsp;&nbsp;&nbsp;
-                        <button onclick='window.location=./index.php?f=home'>Cancel</button>
+                        <input class='button' type='submit' value='OK'/>&nbsp;&nbsp;&nbsp;
+                        <button class='button' onclick='window.location=./index.php?f=home'>Cancel</button>
                         </p>
                     </td>\n
                 </tr>\n", $_SERVER['PHP_SELF']);

@@ -16,10 +16,12 @@ class UserView extends View {
     private function displayul() {
         $users = Users::retrieveMany();
         $s = "<div class='haves'>";
+        $s .= "<table id='create'>";
         foreach ($users as $user) {
-            $s .=  sprintf("%s<br/>\n"
+            $s .=  sprintf("<tr><td>%s</td><tr>\n"
                 , $user);
         }
+        $s .= "</table>";
         $s .= "</div>";
         return $s;
     }
@@ -37,35 +39,29 @@ class UserView extends View {
         private function registerForm() {
         $s = sprintf("
             <form id='formalia' action='%s?f=register' method='post' enctype=\"multipart/form-data\">\n
-            <div class='gets'>\n
-                <h3>Create New User</h3>\n
-                <p>\n
-                    Username:<br/>
-                    <input type='text' name='username'/>\n
-                </p>\n
-                <p>\n
-                    Email:<br/>
-                    <input type='email' name='email'/>\n
-                </p>\n
-                <p>\n
-                    Name:<br/>
-                    <input type='text' name='name'/>\n
-                </p>\n
-                <p>\n
-                    Profile Image:<br/>
-                <input type=\"file\" name=\"profileimage\" accept=\"image/*\">\n
-                </p>\n
-                <p>\n
-                    Pwd:<br/>
-                    <input type='password' name='password'/>\n
-                </p>\n
-                 <p>\n
-                    Pwd repeat:<br/>
-                    <input type='password' name='pwd2'/>\n
-                </p>\n
-                <p>\n
-                    <input type='submit' value='Go'/>
-                </p>
+            <table id='create'>\n
+                <caption>Create New User</caption>\n
+                <tr>\n
+                    <td>Username: </td><td><input type='text' name='username'/></td>\n
+                </tr>\n
+                <tr>\n
+                    <td>Email: </td><td><input type='email' name='email'/></td>\n
+                </tr>\n
+                <tr>\n
+                    <td>Name: </td><td><input type='text' name='name'/></td>\n
+                </tr>\n
+                <tr>\n
+                    <td>Profile Image: </td><td><input type=\"file\" name=\"profileimage\" accept=\"image/*\"></td>\n
+                </tr>\n
+                <tr>\n
+                    <td>Pwd: </td><td><input type='password' name='password'/></td>\n
+                </tr>\n
+                 <tr>\n
+                    <td>Pwd repeat:</td><td><input type='password' name='pwd2'/></td>\n
+                </tr>\n
+                <tr>\n
+                    <td><input class='button' type='submit' value='Go'/></td>
+                </tr>
             </div>", $_SERVER['PHP_SELF']);
                 
         if (!Model::areCookiesEnabled()) {
@@ -82,17 +78,20 @@ class UserView extends View {
     private function userActivateForm() {
         $s = sprintf("
             <form action='%s?f=profile' method='post'>\n
-            <div class='gets'>\n
-                <h3>Activate User</h3>\n
-                <p>\n
-                    Username:<br/>
-                    <input type='text' name='username'/>\n
-                </p>\n
-                <input type='radio' name='activated' value='1' checked> Activate<br>
-                <input type='radio' name='activated' value='0'> Deactivate<br>
-                <p>\n
-                    <input type='submit' value='Go'/>
-                </p>
+            <table id='create'>\n
+                <caption>Activate User</caption>\n
+                <tr>\n
+                    <td>Username:</td><td><input type='text' name='username'/></td>\n
+                </tr>\n
+                <tr>
+                <td><input type='radio' name='activated' value='1' checked></td><td> Activate</td>\n
+                </tr>
+                <tr>
+                <td><input type='radio' name='activated' value='0'></td><td> Deactivate</td>\n
+                </tr>
+                <tr>\n
+                    <td><input class='button' type='submit' value='Go'/></td>
+                </tr>
             </div>", $_SERVER['PHP_SELF']);
 
         if (!Model::areCookiesEnabled()) {
