@@ -65,7 +65,7 @@ SELECT y.*, (
 FROM Yadda y 
 where y.YaddaID NOT in (select r.YaddaIDReply 
                         from Reply r) 
-ORDER BY y.DateAndTime, y.YaddaID
+ORDER BY y.DateAndTime DESC, y.YaddaID
 
 /*************************** FUNCTION *****************************/
 /*oprettet*/

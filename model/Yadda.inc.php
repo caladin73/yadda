@@ -167,11 +167,10 @@ class Yadda {
         $yadda->setImagedata($imagedata);
         $yadda->setImagetype($imagetype);
         
-        if($a['reply']) {
+        if(isset($a['reply']) && $a['reply']) {
             $yadda->setChild(true);
             $yadda->setParentYaddaID($a['parentid']);
         }
-        
         return $yadda;
     }
 
@@ -233,7 +232,6 @@ class Yadda {
                           </form> ";
             
         $s .= "</div>\n";
-        //str_repeat('&nbsp;&nbsp;',$this->getLevel())
         return $s;
     }
  
