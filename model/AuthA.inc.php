@@ -15,7 +15,7 @@ abstract class AuthA implements AuthI {
         return $this->userId;
     }
 
-    /** checks if user is logged in, by seeing is $sessvar set to userID in Authentication.inc.php
+    /** checks if user is logged in, $sessvar set to userID in Authentication.inc.php line 32
      * return true or false  */
     public static function getLoginId() {
         return isset($_SESSION[self::$sessvar]) ? $_SESSION[self::$sessvar] : 'nobody';

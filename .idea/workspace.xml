@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c4f9cb50-e238-410f-b27d-5918b6be0d6a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/yada.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/externFiles/yaddauml.dia" afterPath="$PROJECT_DIR$/externFiles/yaddauml.dia" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/Controller.inc.php" afterPath="$PROJECT_DIR$/controller/Controller.inc.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/AuthA.inc.php" afterPath="$PROJECT_DIR$/model/AuthA.inc.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/AuthI.inc.php" afterPath="$PROJECT_DIR$/model/AuthI.inc.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/Authentication.inc.php" afterPath="$PROJECT_DIR$/model/Authentication.inc.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/Model.inc.php" afterPath="$PROJECT_DIR$/model/Model.inc.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/ModelIf.inc.php" afterPath="$PROJECT_DIR$/model/ModelIf.inc.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/Yadda.inc.php" afterPath="$PROJECT_DIR$/model/Yadda.inc.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -72,8 +60,8 @@
       <file leaf-file-name="AuthA.inc.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/model/AuthA.inc.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="40" column="1" lean-forward="true" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
+            <state relative-caret-position="306">
+              <caret line="17" column="93" lean-forward="false" selection-start-line="17" selection-start-column="93" selection-end-line="17" selection-end-column="93" />
               <folding />
             </state>
           </provider>
@@ -83,9 +71,9 @@
         <entry file="file://$PROJECT_DIR$/model/Authentication.inc.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="486">
-              <caret line="27" column="34" lean-forward="true" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
+              <caret line="27" column="34" lean-forward="false" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
               <folding>
-                <marker date="1514708401136" expanded="true" signature="1134:1259" ph="select Usern... Users" />
+                <marker date="1514725507875" expanded="true" signature="1070:1195" ph="select Usern... Users" />
               </folding>
             </state>
           </provider>
@@ -147,9 +135,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="1204" />
+    <option name="x" value="1267" />
     <option name="y" value="4" />
-    <option name="width" value="1359" />
+    <option name="width" value="1296" />
     <option name="height" value="1577" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -239,17 +227,17 @@
       <workItem from="1513917113133" duration="1205000" />
       <workItem from="1514038231890" duration="1254000" />
       <workItem from="1514151352276" duration="19509000" />
-      <workItem from="1514468695676" duration="26251000" />
+      <workItem from="1514468695676" duration="27637000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56821000" />
+    <option name="totallyTimeSpent" value="58207000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1204" y="4" width="1359" height="1577" extended-state="0" />
+    <frame x="1267" y="4" width="1296" height="1577" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16936104" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17799352" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32927758" sideWeight="0.5030837" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17164816" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -257,7 +245,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30048576" sideWeight="0.4969163" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30048576" sideWeight="0.4969163" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -303,7 +291,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1514708401136" expanded="true" signature="1134:1259" ph="select Usern... Users" />
+            <marker date="1514725507875" expanded="true" signature="1070:1195" ph="select Usern... Users" />
           </folding>
         </state>
       </provider>
@@ -788,24 +776,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/AuthI.inc.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="36" lean-forward="false" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/Authentication.inc.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="27" column="34" lean-forward="true" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
-          <folding>
-            <marker date="1514708401136" expanded="true" signature="1134:1259" ph="select Usern... Users" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="uml://PHP/\Controller">
       <provider selected="true" editor-type-id="UmlEditorProvider">
         <state>
@@ -947,10 +917,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/model/AuthI.inc.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="36" lean-forward="false" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/Authentication.inc.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="27" column="34" lean-forward="false" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
+          <folding>
+            <marker date="1514725507875" expanded="true" signature="1070:1195" ph="select Usern... Users" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/model/AuthA.inc.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="40" column="1" lean-forward="true" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
+        <state relative-caret-position="306">
+          <caret line="17" column="93" lean-forward="false" selection-start-line="17" selection-start-column="93" selection-end-line="17" selection-end-column="93" />
           <folding />
         </state>
       </provider>
