@@ -30,7 +30,6 @@ class Authentication extends AuthA {
 
     /** looks user up in db when he login */
     protected static function dbLookUp($user, $pwd) {
-        /** Using prepared statement to prevent SQL injection*/
         $sql = "select Username, Password 
                 from Users
                 where Username = :uid
@@ -43,7 +42,7 @@ class Authentication extends AuthA {
             $row = $q->fetch();
             if (!($row['Username'] === $user
                     && password_verify($pwd, $row['Password']))) { 
-                 throw new Exception("Not authenticated", 42);   //misery
+                 throw new Exception("Not authenticated", 42);   /**  misery */
             }
         } catch(PDOException $e) {
             die($e->getMessage());

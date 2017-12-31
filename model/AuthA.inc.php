@@ -3,7 +3,7 @@
 require_once 'AuthI.inc.php';
 
 abstract class AuthA implements AuthI {
-    protected static $sessvar = 'yAuth58'; // if set = logged on
+    protected static $sessvar = 'yAuth58'; /** if set = logged on */
     protected static $logInstance = false;
     protected $userId;
     
@@ -14,12 +14,14 @@ abstract class AuthA implements AuthI {
     public function getUserId() {
         return $this->userId;
     }
-    
+
+    /** checks if user is logged in, by seeing is $sessvar set to userID in Authentication.inc.php
+     * return true or false  */
     public static function getLoginId() {
         return isset($_SESSION[self::$sessvar]) ? $_SESSION[self::$sessvar] : 'nobody';
     }
 
-    /** static function that checks if user is authenticated and return true or false */
+    /** checks if user is authenticated and return true or false */
     public static function isAuthenticated() {
       return isset($_SESSION[self::$sessvar]) ? true : false;
     }
