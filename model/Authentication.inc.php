@@ -1,11 +1,5 @@
 <?php
    
-/* 
- * model/AuthA.inc.php
- * @Project: YaddaYaddaYadda
- * @Author: Daniel, Jesper, Marianne & Peter
- */
-
 require_once 'AuthA.inc.php'; // include the login parent
 
 class Authentication extends AuthA {
@@ -13,19 +7,20 @@ class Authentication extends AuthA {
     protected function __construct($user, $pwd) {
         parent::__construct($user);
         try {
-            self::dbLookUp($user, $pwd);                        // invoke auth
-            $_SESSION[self::$sessvar] = $this->getUserId();     // succes
+            self::dbLookUp($user, $pwd);                        /** invoke auth*/
+            $_SESSION[self::$sessvar] = $this->getUserId();     /** succes logged in*/
         }
         catch (Exception $e) {
             self::$logInstance = FALSE;
-            unset($_SESSION[self::$sessvar]);                   //miserys
+            unset($_SESSION[self::$sessvar]);                   /** if login failed, they are not logged in*/
         }      
     }
     
     public static function getUsername() {
         return $_SESSION[self::DISPVAR2];
     }
-    
+
+    /** if not set, we set $logInstance and return it*/
     public static function authenticate($user, $pwd) {
         if (! self::$logInstance) {
             self::$logInstance = new Authentication($user, $pwd);
@@ -33,8 +28,9 @@ class Authentication extends AuthA {
         return self::$logInstance;
     }
 
+    /** looks user up in db when he login */
     protected static function dbLookUp($user, $pwd) {
-        // Using prepared statement to prevent SQL injection
+        /** Using prepared statement to prevent SQL injection*/
         $sql = "select Username, Password 
                 from Users
                 where Username = :uid
@@ -54,4 +50,3 @@ class Authentication extends AuthA {
         }
     }
 }
-

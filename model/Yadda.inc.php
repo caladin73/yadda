@@ -185,8 +185,6 @@ class Yadda {
             $q = $dbh->prepare($sql);
             $q->execute();
             while ($row = $q->fetch()) {
-               // $yadda = self::createObject($row);
-                //$yaddaID, $text, $username, $dateAndTime, $lft, $rght
                 $yadda = new Yadda($row["YaddaID"], $row["Text"], $row["Username"], $row["DateAndTime"], $row["lft"], $row["rght"]);
                 $yadda->setNumOfReplies($row["replies"]);
                 array_push($yaddas, $yadda);
@@ -334,7 +332,6 @@ class Yadda {
         }
     }
     
-    /* Er ikke særlig effektivt ved store trees */
     public function rebuild_tree($parent, $left) {   //TODO
         $dbh = Model::connect();
     
@@ -344,14 +341,14 @@ class Yadda {
                 from Reply r
                 where r.YaddaID = '.$parent.')';
                 
-        // the right value of this node is the left value + 1   
+        /**the right value of this node is the left value + 1*/
         $right = $left+1;   
 
         $q = $dbh->prepare($sql);
         $q->execute();
         
-        // get all children of this node   
-        //$result = $this->link->query($sql);   
+        /**get all children of this node
+        *$result = $this->link->query($sql);*/
 
         /*if (!$this->link->error) { //TODO -> try-catch
             $error = $this->link->error;

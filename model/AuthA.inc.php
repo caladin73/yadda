@@ -1,11 +1,5 @@
 <?php
 
-/* 
- * model/AuthA.inc.php
- * @Project: YaddaYaddaYadda
- * @Author: Daniel, Jesper, Marianne & Peter
- */
-
 require_once 'AuthI.inc.php';
 
 abstract class AuthA implements AuthI {
@@ -25,14 +19,15 @@ abstract class AuthA implements AuthI {
         return isset($_SESSION[self::$sessvar]) ? $_SESSION[self::$sessvar] : 'nobody';
     }
 
+    /** static function that checks if user is authenticated and return true or false */
     public static function isAuthenticated() {
       return isset($_SESSION[self::$sessvar]) ? true : false;
     }
     
     public static function isAdministrator() {
-        
     }
 
+    /** logout function, that closes the session and cookie */
     public static function logout() {
         setcookie(session_name(), '', 0, '/');
         session_unset();

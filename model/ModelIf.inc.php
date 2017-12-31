@@ -1,10 +1,9 @@
 <?php
+
 /**
- * model/ModelIf.inc.php
- * @package MVCnA
- * @author nml
- * @copyright (c) 2017, nml
- * @license http://www.fsf.org/licensing/ GPLv3
+ * Interface ModelIf
+ * properties have to be public, hence parrent class is abstract
+ * two functions that create and update row in database
  */
 interface ModelIf {
     public function create();

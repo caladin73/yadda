@@ -14,14 +14,13 @@ require_once './view/YaddaView.inc.php';
 require_once './model/AuthA.inc.php';
 
 class Controller {
-    private $model; // bliver sat i action()
+    private $model;
     private $get;
     private $post;
     private $function;
     private $file;
-    // are cookies allowed
 
-    // Called with param in URL: ?f=
+    /** Called with param in URL: ?f=   */
     public function action() {
         switch ($this->function) {
             case 'login':   //auth
@@ -70,7 +69,7 @@ class Controller {
                 break;
         }
     }
-    
+
     public function __construct($get, $post, $file) {
         $this->get = $get;
         $this->post = $post;
@@ -81,6 +80,9 @@ class Controller {
         $this->function = isset($f) ? $f : 'login';
     }
 
+    /**checks if user is authenticated,
+     * if not and cookies is enable and username and pass is set,
+     * then authenticate and return array $p */
     public function auth($p) {
         if (isset($p) && count($p) > 0) {
             if (!AuthA::isAuthenticated() 
